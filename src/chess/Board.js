@@ -18,20 +18,24 @@ function Board({ boardData }) {
   }, [position]);
 
   const movePosition = (key, point) => {
+    const newPosition = {};
     switch (key) {
       case "ArrowLeft":
-        setPosition({x: point.x, y: Math.max(point.y - 1, 0)});
+        newPosition = {x: point.x, y: Math.max(point.y - 1, 0)};
         break;
-        case "ArrowUp":
-        setPosition({x: Math.max(point.x - 1, 0), y: point.y});
+      case "ArrowUp":
+        newPosition = {x: Math.max(point.x - 1, 0), y: point.y};
         break;
-        case "ArrowRight":
-          setPosition({x: point.x, y: Math.min(point.y + 1, boardSize - 1)});
-          break;
+      case "ArrowRight":
+        newPosition = {x: point.x, y: Math.min(point.y + 1, boardSize - 1)};
+        break;
       case "ArrowDown":
-        setPosition({x: Math.min(point.x + 1, boardSize - 1), y: point.y});
+        newPosition = {x: Math.min(point.x + 1, boardSize - 1), y: point.y};
         break;
     }
+
+    setPosition(newPosition);
+    return newPosition;
   }
 
   const downHandler = ({ key }) => {

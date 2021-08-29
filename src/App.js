@@ -5,13 +5,18 @@ import Board from './chess/Board';
 import './chess/style.css';
 
 function App() {
-
   const [boardData, setBoardData] = React.useState({ boardSize: 6, steps: 10 });
-  const [chessStarted, setChessStarted] = React.useState(false);
+  const [positions, setPositions] = React.useState([]);
+  const [chessScreen, setChessScreen] = React.useState('initial');
 
   const startChess = (values) => {
     setBoardData(values);
-    setChessStarted(true);
+    setChessScreen('started');
+  }
+
+  const restartChess = () => {
+    setPositions([]);
+    setChessScreen('initial');
   }
 
   return (
@@ -20,9 +25,9 @@ function App() {
         <img src="/chess.png" className="logo" alt="logo" />
       </header>
       <section className="App-main">
-        {chessStarted ? 
-          <Board boardData={boardData} /> :
-          <StartForm startChess={startChess}/>}
+        {chessScreen === 'initial' && <StartForm startChess={startChess} />}
+        {chessScreen === 'started' && <Board boardData={boardData} addPosition={addPosition} />}
+        {chessScreen === 'finished' && <Result positions={positions} restartChess={restartChess} />}
       </section>
     </div>
   );
