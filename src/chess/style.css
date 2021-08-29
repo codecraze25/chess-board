@@ -1,0 +1,28 @@
+.board {
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.row > div {
+  max-width: 100px;
+  max-height: 100px;
+}
+.row > div:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.row > div.white {
+  background: #fff;
+}
+.row > div.black {
+  background: #aa5c23;
+}
+.row > div.active {
+  background: #6aff00;
+}
