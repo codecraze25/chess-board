@@ -9,7 +9,7 @@ const INITIAL_VALUES = {
 
 function StartForm({ startChess }) {
   const handleSubmit = async (values) => {
-    startChess(values);
+    startChess({boardSize: parseInt(values.boardSize), steps: parseInt(values.steps)});
   };
 
   return (
@@ -19,26 +19,36 @@ function StartForm({ startChess }) {
         onSubmit={handleSubmit}
         validationSchema={StartFormSchema}
       >
-        {({ values, setFieldValue }) => (
+        {({ values, setFieldValue, errors, touched }) => (
           <Form>
             <div className="form-control">
-              <label className="form-label" htmlFor="boardSize">Chess Board Size (nxn)</label>
-              <input
-                type="text"
-                name="boardSize"
-                value={values.boardSize}
-                onChange={e => setFieldValue('boardSize', e.target.value)}
-              />
+              <div className="field">
+                <label className="form-label" htmlFor="boardSize">Chess Board Size (nxn)</label>
+                <input
+                  type="text"
+                  name="boardSize"
+                  value={values.boardSize}
+                  onChange={e => setFieldValue('boardSize', e.target.value)}
+                />
+              </div>
+              {errors.boardSize && touched.boardSize ? (
+                <div className="error">{errors.boardSize}</div>
+              ) : null}
             </div>
 
             <div className="form-control">
-              <label className="form-label" htmlFor="steps">Number of available steps</label>
-              <input
-                type="text"
-                name="steps"
-                value={values.steps}
-                onChange={e => setFieldValue('steps', e.target.value)}
-              />
+              <div className="field">
+                <label className="form-label" htmlFor="steps">Number of available steps</label>
+                <input
+                  type="text"
+                  name="steps"
+                  value={values.steps}
+                  onChange={e => setFieldValue('steps', e.target.value)}
+                />
+              </div>
+              {errors.steps && touched.steps ? (
+                <div className="error">{errors.steps}</div>
+              ) : null}
             </div>
 
             <div className="form-control form-submit">

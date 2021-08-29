@@ -6,11 +6,16 @@ function Result({ positions, restartChess }) {
     restartChess();
   };
 
+  let items = [];
+  positions.forEach((p, i) => items.push(`{${p.x}, ${p.y}}`));
+
+  let itemsStr = `[${items.join(", ")}]`;
+  console.log(items);
   return (
     <div className="result">
       <h2>Thank you! Your steps:</h2>
       <div className="steps-result">
-        {JSON.stringify(positions, null, 2)}
+        {itemsStr}
       </div>
 
       <button onClick={handleClick}>START OVER</button>

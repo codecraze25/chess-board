@@ -1,11 +1,9 @@
-import React from 'react';
-import { useState, useEffect } from "react";
-let actionPerformed = false;
+import React, { useEffect } from 'react';
 
-function Board({ boardData }) {
-  const { boardSize, steps } = boardData;
+function Board({ boardSize, addPosition, stop }) {
   const center = { x: Math.floor(boardSize / 2) - 1, y: Math.floor(boardSize / 2) - 1 };
   const [position, setPosition] = React.useState(center);
+  const [actionPerformed, setActionPerformed] = React.useState(false);
 
   useEffect(() => {
     window.addEventListener("keydown", downHandler);
@@ -15,10 +13,11 @@ function Board({ boardData }) {
       window.removeEventListener("keydown", downHandler);
       window.removeEventListener("keyup", upHandler);
     };
-  }, [position]);
+  }, [position, actionPerformed]);
 
   const movePosition = (key, point) => {
-    const newPosition = {};
+
+    let newPosition = {};
     switch (key) {
       case "ArrowLeft":
         newPosition = {x: point.x, y: Math.max(point.y - 1, 0)};
@@ -34,18 +33,19 @@ function Board({ boardData }) {
         break;
     }
 
+    addPosition(newPosition)
     setPosition(newPosition);
     return newPosition;
   }
 
   const downHandler = ({ key }) => {
-    if (!actionPerformed) {
+    if (!actionPerformed && !stop && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(key)) {
       movePosition(key, position);
-      actionPerformed = true;
+      setActionPerformed(true);
     }
   }
   const upHandler = ({ key }) => {
-    actionPerformed = false;
+    setActionPerformed(false);
   };
 
   const renderBoard = () => {

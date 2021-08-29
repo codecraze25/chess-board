@@ -26,3 +26,23 @@
 .row > div.active {
   background: #6aff00;
 }
+.steps-result {
+  margin-bottom: 40px;
+}
+button {
+  padding: 10px 40px;
+  font-size: 20px;
+}
+.form-control {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  width: 240px;
+  display: inline-block;
+  text-align: left;
+  font-weight: 500;
+}
+.field > input {
+  padding: 5px 10px;
+}
