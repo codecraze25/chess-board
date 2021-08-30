@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 function Board({ boardData, addPosition, stop }) {
   const { boardSize, steps } = boardData;
-  const center = { x: Math.floor(boardSize / 2) - 1, y: Math.floor(boardSize / 2) - 1 };
+  const center = { x: Math.floor(Math.random() * boardSize), y: Math.floor(Math.random() * boardSize) };
   const [position, setPosition] = React.useState(center);
   const [stepsLeft, setStepsLeft] = React.useState(steps);
   const [actionPerformed, setActionPerformed] = React.useState(false);
