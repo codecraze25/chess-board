@@ -35,7 +35,7 @@ function App() {
       </header>
       <section className="App-main">
         {chessScreen === 'initial' && <StartForm startChess={startChess} />}
-        {chessScreen === 'started' && <Board boardSize={boardData.boardSize} addPosition={addPosition} stop={positions.length === boardData.steps} />}
+        {chessScreen === 'started' && <Board boardData={boardData} addPosition={addPosition} stop={positions.length === boardData.steps} />}
         {chessScreen === 'finished' && <Result positions={positions} restartChess={restartChess} />}
       </section>
     </div>

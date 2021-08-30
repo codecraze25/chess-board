@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 
-function Board({ boardSize, addPosition, stop }) {
+function Board({ boardData, addPosition, stop }) {
+  const { boardSize, steps } = boardData;
   const center = { x: Math.floor(boardSize / 2) - 1, y: Math.floor(boardSize / 2) - 1 };
   const [position, setPosition] = React.useState(center);
+  const [stepsLeft, setStepsLeft] = React.useState(steps);
   const [actionPerformed, setActionPerformed] = React.useState(false);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ function Board({ boardSize, addPosition, stop }) {
   
       addPosition(newPosition)
       setPosition(newPosition);
+      setStepsLeft(stepsLeft - 1);
       return newPosition;
     }
 
@@ -48,7 +51,7 @@ function Board({ boardSize, addPosition, stop }) {
       window.removeEventListener("keydown", downHandler);
       window.removeEventListener("keyup", upHandler);
     };
-  }, [position, actionPerformed, stop, addPosition, boardSize]);
+  }, [position, actionPerformed, stop, addPosition, boardSize, stepsLeft]);
 
   const renderBoard = () => {
     const classNames = (i, j) => {
@@ -79,6 +82,7 @@ function Board({ boardSize, addPosition, stop }) {
 
   return (
     <div className="board-container">
+      <div className="steps-left">Steps left: {stepsLeft} / {steps}</div>
       {renderBoard()}
     </div>
   );
