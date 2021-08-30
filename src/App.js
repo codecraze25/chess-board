@@ -5,14 +5,6 @@ import Board from './chess/Board';
 import Result from './chess/Result';
 import './chess/style.css';
 
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
-
 function App() {
   const [boardData, setBoardData] = React.useState({ boardSize: 6, steps: 10 });
   const [positions, setPositions] = React.useState([]);
@@ -36,7 +28,6 @@ function App() {
     setChessScreen('initial');
   }
 
-  console.log(positions);
   return (
     <div className="App">
       <header className="App-header">

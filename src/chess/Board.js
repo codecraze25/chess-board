@@ -6,6 +6,41 @@ function Board({ boardSize, addPosition, stop }) {
   const [actionPerformed, setActionPerformed] = React.useState(false);
 
   useEffect(() => {
+    const movePosition = (key, point) => {
+
+      let newPosition = {};
+      switch (key) {
+        case "ArrowLeft":
+          newPosition = {x: point.x, y: Math.max(point.y - 1, 0)};
+          break;
+        case "ArrowUp":
+          newPosition = {x: Math.max(point.x - 1, 0), y: point.y};
+          break;
+        case "ArrowRight":
+          newPosition = {x: point.x, y: Math.min(point.y + 1, boardSize - 1)};
+          break;
+        case "ArrowDown":
+          newPosition = {x: Math.min(point.x + 1, boardSize - 1), y: point.y};
+          break;
+        default:
+          break;
+      }
+  
+      addPosition(newPosition)
+      setPosition(newPosition);
+      return newPosition;
+    }
+
+    const downHandler = ({ key }) => {
+      if (!actionPerformed && !stop && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(key)) {
+        movePosition(key, position);
+        setActionPerformed(true);
+      }
+    }
+    const upHandler = ({ key }) => {
+      setActionPerformed(false);
+    };
+
     window.addEventListener("keydown", downHandler);
     window.addEventListener("keyup", upHandler);
 
@@ -13,40 +48,7 @@ function Board({ boardSize, addPosition, stop }) {
       window.removeEventListener("keydown", downHandler);
       window.removeEventListener("keyup", upHandler);
     };
-  }, [position, actionPerformed]);
-
-  const movePosition = (key, point) => {
-
-    let newPosition = {};
-    switch (key) {
-      case "ArrowLeft":
-        newPosition = {x: point.x, y: Math.max(point.y - 1, 0)};
-        break;
-      case "ArrowUp":
-        newPosition = {x: Math.max(point.x - 1, 0), y: point.y};
-        break;
-      case "ArrowRight":
-        newPosition = {x: point.x, y: Math.min(point.y + 1, boardSize - 1)};
-        break;
-      case "ArrowDown":
-        newPosition = {x: Math.min(point.x + 1, boardSize - 1), y: point.y};
-        break;
-    }
-
-    addPosition(newPosition)
-    setPosition(newPosition);
-    return newPosition;
-  }
-
-  const downHandler = ({ key }) => {
-    if (!actionPerformed && !stop && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(key)) {
-      movePosition(key, position);
-      setActionPerformed(true);
-    }
-  }
-  const upHandler = ({ key }) => {
-    setActionPerformed(false);
-  };
+  }, [position, actionPerformed, stop, addPosition, boardSize]);
 
   const renderBoard = () => {
     const classNames = (i, j) => {

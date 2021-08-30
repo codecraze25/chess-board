@@ -11,6 +11,7 @@
 .row > div {
   max-width: 100px;
   max-height: 100px;
+  min-width: 40px;
 }
 .row > div:after {
   content: "";
@@ -36,7 +37,6 @@ button {
 .form-control {
   margin-bottom: 20px;
 }
-
 .form-label {
   width: 240px;
   display: inline-block;
@@ -44,5 +44,12 @@ button {
   font-weight: 500;
 }
 .field > input {
-  padding: 5px 10px;
+  padding: 10px 10px;
+  font-size: 20px;
+}
+.error {
+  padding-top: 10px;
+  padding-bottom: 4px;
+  color: red;
+  font-size: 16px;
 }

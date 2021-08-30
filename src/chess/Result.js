@@ -10,7 +10,7 @@ function Result({ positions, restartChess }) {
   positions.forEach((p, i) => items.push(`{${p.x}, ${p.y}}`));
 
   let itemsStr = `[${items.join(", ")}]`;
-  console.log(items);
+
   return (
     <div className="result">
       <h2>Thank you! Your steps:</h2>
